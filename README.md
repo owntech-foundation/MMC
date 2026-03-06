@@ -1,61 +1,50 @@
-# OwnTech Power API
+# CARROTS MMC
 
-This is the OwnTech Power API Core repository.
+This is the firmware repository used in the CARROTS project
+("Cooperative modulAr multilevel conveRter: a poweR, cOntrol and daTa collaborative Study").
 
-The Power API is designed to be used with VS Code and PlatformIO.
+The repository contains the embedded software used to run a modular multilevel converter (MMC) arm on OwnTech SPIN boards. 
+
+The software stack is designed to be used with VS Code and PlatformIO.
 [Installing VS Code with PlatformIO](https://platformio.org/install/ide?install=vscode).
 
-For information about Power API, check out its [Documentation](https://docs.owntech.org/#/renders/API/home).
 
+## Downloading CARROTS MMC
 
-## Downloading OwnTech Power API Core
+You first need to download the repository using the following command:
 
-You fisrt need to download the Power API Core repository using the following command:
-
-`git clone https://github.com/owntech-foundation/Core.git owntech_power_api`
+`git clone https://github.com/owntech-foundation/MMC.git carrots_mmc`
 
 Then, open VS Code and, if not already done, install the PlatformIO plugin.
 
-Finally, open the newly cloned folder `owntech_power_api` using menu `File > Open Folder...`
+Finally, open the `software` folder from the cloned repository using menu `File > Open Folder...`
 
 
-## Working with OwnTech Power API
-
-While the project contains many folders and files, all your code goes to the `src` folder.
-In the this folder, the file `main.cpp` is the entry point of the application.
-Aditionally, some configuration can be done in the `platformio.ini` file.
-
-Other folders and files are used to configure the underlying Zephyr OS and PlatformIO, and are hidden by default.
-
-
-### Accessing OwnTech source code in VS Code (for advanced developers)
+### Structure of the project
 
 The full hierarchy of the project is as follows:
 
+```text
+carrots_mmc
+|-- docs
+|-- schematics
+|-- software
+|   |-- owntech
+|   |-- src
+|   |   `-- main.cpp
+|   |-- zephyr
+|   |   |-- boards
+|   |   |-- dts
+|   |   |-- modules
+|   |   |-- CMakeLists.txt
+|   |   `-- prj.conf
+|   |-- platformio.ini
+|   `-- west.yml
+|-- LICENSE
+`-- README.md
 ```
-owntech_power_api
-└─ owntech
-|  └─ boards
-|  └─ scripts
-|  └─>pio_extra.ini
-└─ src
-|  └─>main.cpp
-└─ zephyr
-|  └─ boards
-|  └─ dts
-|  └─ modules
-|  └─>CMakeLists.txt
-|  └─>prj.conf
-└─>LICENSE
-└─>platformio.ini
-└─>README.md
-```
 
-The `owntech` folder contains scripts and board description for PlatformIO, while the `zephyr` folder contains board decription and OwnTech's Zephyr modules.
-By default, these folders (as well as VS Code and PlatformIO folders `.vscode` and `.pio`) are hidden when opening the project in VS Code.
+The `software/owntech` folder contains PlatformIO helper scripts and board integration, while the `software/zephyr` folder contains board descriptions, Zephyr configuration and the communication modules used by the project.
+By default, most project work happens in `software/src/main.cpp` and `software/platformio.ini`.
 
-If you need to access these in VS Code, open the project using your file explorer, then in the `.vscode` folder, rename file `settings.json`, e.g. to `settings.json.old`.
-
-Advanced Zephyr configuration can be tweaked by editing `zephyr/prj.conf`.
-
-The OwnTech API source code is located in `zephyr/modules`. If you need to tailor it to your needs, please checkout the [Zephyr documentation](https://docs.zephyrproject.org/3.4.0/).
+Advanced Zephyr configuration can be tweaked by editing `software/zephyr/prj.conf`.
